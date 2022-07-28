@@ -9,34 +9,41 @@ const int INF = LLONG_MAX >> 1;
 
 bool cmp(pair<int,int>a,pair<int,int>b)
 {
-    return a.second<b.second;
+   double r1 = (double)a.first/a.second;
+   double r2 = (double)b.first/b.second;
+   return r1 >r2;
 }
 
-int max_activities(pair<int,int>arr[],int n)
+int fknap(pair<int,int>arr[],int n,int w)
 {
-    int count =1,prev =0;
     sort(arr,arr+n,cmp);
-    for(int i=1;i<=n;i++)
-    {
-        if(arr[i].first>=arr[prev].second)
-        {
-            count++;
-            prev = i;
+    double res = 0.0;
 
+    for(int i = 0;i<n;i++)
+    {
+        if(arr[i].second <= w)
+        {
+            res += arr[i].first;
+            w = w-arr[i].second;
+        }
+        else{
+            res += arr[i].first * ((double) w / arr[i].second);
+             break;
+            
         }
     }
-    return count;
+    return res;
 }
 
 
 signed main() {
     ios::sync_with_stdio(false); cin.tie(NULL);
         pair<int,int>arr[]={
-            make_pair(12,25),make_pair(10,20),make_pair(20,30)
+            make_pair(120,30),make_pair(100,20),make_pair(60,10)
         };
-        int n = 3;
+        int n = 3,w =70;
 
-        cout<<max_activities(arr,n);
+        cout<<fknap(arr,n,w);
     
 }
 

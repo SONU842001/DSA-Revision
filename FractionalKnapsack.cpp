@@ -1,53 +1,52 @@
 #include <bits/stdc++.h>
+
 using namespace std;
+using ll = long long;
+using ld = long double;
 
-#define endl '\n'
-#define int long long
+struct Node{
 
-const int MOD = 1e9 + 7;
-const int INF = LLONG_MAX >> 1;
-
-bool cmp(pair<int,int>a,pair<int,int>b)
-{
-   double r1 = (double)a.first/a.second;
-   double r2 = (double)b.first/b.second;
-   return r1 >r2;
-}
-
-int fknap(pair<int,int>arr[],int n,int w)
-{
-    sort(arr,arr+n,cmp);
-    double res = 0.0;
-
-    for(int i = 0;i<n;i++)
+      int value;
+      Node* next;
+      Node* prev;
+      Node(int x)
+      {
+         value=x;
+         next=NULL;
+         prev=NULL;
+      }
+};
+ 
+  
+  Node* insertList(Node* head,int x)
+  {
+    Node* temp =new Node(x);
+    temp->next=head;
+    if(head!=NULL)
     {
-        if(arr[i].second <= w)
-        {
-            res += arr[i].first;
-            w = w-arr[i].second;
-        }
-        else{
-            res += arr[i].first * ((double) w / arr[i].second);
-             break;
-            
-        }
+        head->prev=temp;
     }
-    return res;
-}
-
-
-signed main() {
-    ios::sync_with_stdio(false); cin.tie(NULL);
-        pair<int,int>arr[]={
-            make_pair(120,30),make_pair(100,20),make_pair(60,10)
-        };
-        int n = 3,w =70;
-
-        cout<<fknap(arr,n,w);
     
+    return temp;
+
+  }
+void printlist(Node *head){
+        for(Node* curr=head;curr!=NULL;curr=curr->next)
+        {
+            cout<<curr->value<<" ";
+        }
 }
 
-
+int main() {
+  
+   Node* head=NULL; 
+   
+   head=insertList(head,5);
+   
+   
+    printlist(head);
+   return 0;
+}
 
 
 
